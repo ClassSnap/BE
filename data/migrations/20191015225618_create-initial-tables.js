@@ -102,6 +102,12 @@ exports.up = function(knex) {
         .notNullable()
         .references("id")
         .inTable("studentsParent");
+      rating
+        .integer("classId")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("classes");
     });
 };
 

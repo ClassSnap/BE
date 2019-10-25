@@ -9,6 +9,7 @@ module.exports = {
   getAllStudentsByTeacherId,
   getOneStudentByStudentId,
   addStudent,
+  addStudenttoClass,
   editStudent,
   deleteStudent,
   getQuestionByClassId,
@@ -53,19 +54,23 @@ function deleteClass(id) {
 
 //Get All Student By ClassId
 function getAllStudentsByTeacherId(id) {
-  return db("students").where("classId", id);
+  return db("class_learners").where("classId", id);
 }
 
-//Get One Student By Student Id
+//Get One Student By Student Id on class List
 function getOneStudentByStudentId(id) {
-  return db("students").where({ id });
+  return db("class_learners").where("learnId", id);
 }
 
-//Add Student
+//Add Learner to learners table
 function addStudent(info) {
-  return db("students")
+  return db("learners")
     .insert(info)
     .then(ids => ({ id: ids[0] }));
+}
+
+function addStudenttoClass(info) {
+  return "class_learners".insert(info).then(ids => ({ id: ids[0] }));
 }
 
 //Edit Student by Student Id

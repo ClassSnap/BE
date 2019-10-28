@@ -44,7 +44,6 @@ router.post("/login", (req, res) => {
     db.findTeacherBy({ teacherEmail })
       .first()
       .then(user => {
-        console.log(user);
         if (user && bcrypt.compareSync(teacherPassword, user.teacherPassword)) {
           const token = generateTeacherToken(user);
           res.status(200).json({

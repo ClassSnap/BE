@@ -80,4 +80,4 @@ router.delete("/:id", restricted, (req, res) => {
     });
 });
 
-module.exprots = router;
+module.exports = router;

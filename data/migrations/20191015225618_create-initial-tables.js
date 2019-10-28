@@ -28,10 +28,11 @@ exports.up = function(knex) {
     })
     .createTable("learners", function(learner) {
       learner.increments();
-      learner.string("lastName").notNullable();
-      learner.string("firstName").notNullable();
+      learner.string("lastName", 128).notNullable();
+      learner.string("firstName", 128).notNullable();
       learner.string("gender");
       learner.date("birthdate");
+      learner.string("learnerCode", 128).unique();
     })
     .createTable("classes", function(classes) {
       classes.increments();
@@ -92,10 +93,8 @@ exports.up = function(knex) {
 
     .createTable("ratings", function(rating) {
       rating.increments();
-      rating
-        .integer("rating")
-        .unsigned()
-        .notNullable();
+      rating.integer("rating").unsigned();
+
       rating.date("ratingDate");
       rating
         .integer("questionId")
@@ -115,6 +114,7 @@ exports.up = function(knex) {
         .notNullable()
         .references("id")
         .inTable("classes");
+      rating.boolean("completed").defaultTo(false);
     });
 };
 

@@ -1,6 +1,7 @@
 const db = "../../../data/dbConfig";
 
 module.exports = {
+  findByLearnerCode,
   matchLearnertoParent,
   getLearnerByParentId,
   getClassByLearnerId,
@@ -10,10 +11,15 @@ module.exports = {
   getRatingByLearnerParnetId,
 };
 
+//find Learner By Name
+function findByLearnerCode(code) {
+  return db("learners").where("learnerCode", code);
+}
+
 //Match Learner with Parent
-function matchLearnertoParent(info) {
+function matchLearnertoParent(learnerId, parentId) {
   return db("learner_parent")
-    .insert(info)
+    .insert(learnerId, parentId)
     .then(ids => ({ id: ids[0] }));
 }
 //Get Learners By Parent Id

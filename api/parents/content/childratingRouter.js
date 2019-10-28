@@ -16,3 +16,9 @@ router.post("/by/:id", (req, res) => {
       res.status(500).json({ errorMessage: "Error posting rating to server" });
     });
 });
+
+//2.Get rating from question
+router.get("/:id", (req, res) => {
+  const qrid = req.params.lpid;
+  db.get;
+});

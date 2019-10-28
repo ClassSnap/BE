@@ -48,9 +48,10 @@ function getQuestionByQuestionId(id) {
   return db("questions").where("questions.id", id);
 }
 //** */Post rating By Question Id
-function addRating(info) {
+function addRating(info, learnerid) {
   return db("ratings")
     .insert(info)
+    .where("learnerParentId", learnerid)
     .then(ids => ({ id: ids[0] }));
 }
 
@@ -58,3 +59,6 @@ function addRating(info) {
 function getRatingByLearnerParnetId() {
   return db("ratings").where("ratings.learnParentId", id);
 }
+
+//Get rating by question id
+function getRatingByQuestionIdl

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../../data/dbConfig");
+const db = require("./teacherModel");
 
 //middleware
 const restricted = require("./teacher-middleware");

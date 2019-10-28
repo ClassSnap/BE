@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../../data/dbConfig");
+const db = require("./teacherModel")
 
 //middleware
 const restricted = require("./teacher-middleware");
@@ -36,7 +36,7 @@ router.get("/:id", (req, res) => {
 //2. add Student
 router.post("/add", restricted, (req, res) => {
   const studentInfo = req.body;
-  if (!studentInfo.lastName || !studentInfo.firstName || !studentInfo.classId) {
+  if (!studentInfo.lastName || !studentInfo.firstName) {
     res.status(404).json({ message: "Missing student info" });
   } else {
     db.addStudent(studentInfo)

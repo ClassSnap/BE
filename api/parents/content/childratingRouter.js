@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../../data/dbConfig");
 
-const protected = require("./parent-middleware");
-
 //1. Post rating to specific question
 router.post("/by/:id", (req, res) => {
   const lpid = req.params.lpid;

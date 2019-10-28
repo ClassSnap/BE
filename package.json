@@ -4,8 +4,9 @@
   "description": "This is ClassSnap's Backend code.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon index.js"
+    "server": "nodemon index.js",
+    "node": "node inex.js",
+    "testing": "cross-env NODE_ENV=testing jest --watchAll"
   },
   "repository": {
     "type": "git",
@@ -34,5 +35,8 @@
     "jest": "^24.9.0",
     "nodemon": "^1.19.4",
     "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }

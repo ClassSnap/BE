@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../../data/dbConfig");
 
-const protected = require("./parent-middleware");
-
 //1. Match learner to parent
 //likely need review
 //current logic involves parent entering child name and child name is searched through

@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../../data/dbConfig");
 
-const protected = require("./parent-middleware");
 
 
 //1. Get child's classes by child's id

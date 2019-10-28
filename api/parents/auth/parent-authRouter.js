@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 //token
 const genereateParentToken = require("./parent-token");
 
-router.post("/register", (req, res) => {
+router.post("/register", async (req, res) => {
   const parentCreds = req.body;
   if (
     !parentCreds.parentName ||
@@ -20,28 +20,28 @@ router.post("/register", (req, res) => {
     const hashed = bcrypt.hashSync(parentCreds.parentPassword, 10);
     parentCreds.parentPassword = hashed;
     const { parentEmail } = req.body;
-    db.findParentBy({ parentEmail })
-      .then(user => {
-        if (user) {
-          res.status(400).json({ message: "Email is already used" });
-        } else {
-          db.addParent(parentCreds)
-            .then(user => {
-              res.status(201).json(user);
-            })
-            .catch(error => {
-              res
-                .status(500)
-                .json({ errorMessage: "Error registering parent to server" });
-            });
-        }
-      })
-      .catch(error => {
-        res
-          .status(500)
-          .json({ errorMessage: "Error checking email from server" });
-      });
+    const user = await db.findParentBy({ parentEmail });
+
+    if (user.id) {
+      res.status(400).json({ message: "Email is already used" });
+    } else {
+      await db
+        .addParent(parentCreds)
+        .then(user => {
+          res.status(201).json(user);
+        })
+        .catch(error => {
+          res
+            .status(500)
+            .json({ errorMessage: "Error registering parent to server" });
+        });
+    }
   }
+  // .catch(error => {
+  //   res
+  //     .status(500)
+  //     .json({ errorMessage: "Error checking email from server" });
+  // });
 });
 
 router.post("/login", (req, res) => {

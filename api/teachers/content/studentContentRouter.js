@@ -79,4 +79,4 @@ router.delete("/:id", (req, res) => {
         .json({ errorMessage: "Error deleting student from server" });
     });
 });
-module.exprots = router;
+module.exports = router;

@@ -63,4 +63,4 @@ router.get("/class/:id", (req, res) => {
 
 //1c. Add Question
 
-module.exprots = router;
+module.exports = router;

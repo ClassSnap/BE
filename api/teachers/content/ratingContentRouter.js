@@ -38,4 +38,4 @@ router.get("/question/:id", (req, res) => {
 //       const RstudentId = req.params.id
 //       const RclassId = req.body
 //     })
-module.exprots = router;
+module.exports = router;

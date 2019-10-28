@@ -70,4 +70,4 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-module.exprots = router;
+module.exports = router;

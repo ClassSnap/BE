@@ -6,3 +6,10 @@ parent id=1
 
 parent id =2
 {"parentName":"Jacqueline", "parentEmail": "lai@gmail.com","parentPassword":"9319", "relationship":"mom"}
+
+<!-- console.log(Math.random().toString(36).slice(2)
+) -->
+
+CRC-32
+CRC-16
+^encryption methods

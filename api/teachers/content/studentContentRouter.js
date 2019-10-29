@@ -1,29 +1,44 @@
 const express = require("express");
 const router = express.Router();
-const db = require("./teacherModel")
+const db = require("./teacherModel");
 
 //middleware
 const restricted = require("./teacher-middleware");
 
-//1a. Get all students By Teacher Id
-router.get("/teacher/:id", (req, res) => {
-  const teacherId = req.params.id;
-  db.getAllStudentsByTeacherId(teacherId)
-    .then(info => {
-      res.status(200).json(info);
+// //1a. Get all students By Teacher Id
+// router.get("/teacher/:id", (req, res) => {
+//   const teacherId = req.params.id;
+//   db.getAllStudentsByTeacherId(teacherId)
+//     .then(info => {
+//       res.status(200).json(info);
+//     })
+//     .catch(error => {
+//       res.status(500).json({
+//         errorMessage: "Error getting all students by teacher id from server",
+//       });
+//     });
+// });
+
+//1c. Get all students
+router.get("/", restricted, (req, res) => {
+  db.getAllStudents()
+    .then(students => {
+      res.status(200).json({ message: "Working", students });
     })
     .catch(error => {
-      res.status(500).json({
-        errorMessage: "Error getting all students by teacher id from server",
-      });
+      res
+        .status(500)
+        .json({ errorMessage: "Error fetching all students from server" });
     });
 });
 
 //1b. Get one student by student id
 router.get("/:id", (req, res) => {
   const studentId = req.params.id;
+
   db.getOneStudentByStudentId(studentId)
     .then(info => {
+      console.log(info);
       res.status(200).json(info);
     })
     .catch(error => {
@@ -41,7 +56,7 @@ router.post("/add", restricted, (req, res) => {
   } else {
     db.addStudent(studentInfo)
       .then(student => {
-        res.status(200).json({ message: "New student created" });
+        res.status(200).json({ message: "New student created", student });
       })
       .catch(error => {
         res
@@ -69,7 +84,7 @@ router.put("/:id", (req, res) => {
 //4. Delete student
 router.delete("/:id", (req, res) => {
   const deleteStudentId = req.params.id;
-  db.deleteClass(deleteStudentId)
+  db.deleteStudent(deleteStudentId)
     .then(info => {
       res.status(200).json({ message: "Student deleted" });
     })

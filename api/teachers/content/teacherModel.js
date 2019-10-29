@@ -3,10 +3,12 @@ const db = require("../../../data/dbConfig");
 module.exports = {
   getClassByTeacherId,
   getClassByClassId,
+  getClassBy,
   addClass,
   updateClass,
   deleteClass,
   getAllStudentsByTeacherId,
+  getAllStudents,
   getOneStudentByStudentId,
   addStudent,
   addStudenttoClass,
@@ -30,6 +32,11 @@ function getClassByTeacherId(id) {
 //Get Class By Class Id
 function getClassByClassId(id) {
   return db("classes").where("id", id);
+}
+
+//Get Class By filter
+function getClassBy(filter) {
+  return db("classes").where(filter);
 }
 
 //Add Class
@@ -57,9 +64,14 @@ function getAllStudentsByTeacherId(id) {
   return db("class_learners").where("classId", id);
 }
 
+//Get all students
+function getAllStudents() {
+  return db("learners");
+}
+
 //Get One Student By Student Id on class List
 function getOneStudentByStudentId(id) {
-  return db("class_learners").where("learnId", id);
+  return db("learners").where("id", id);
 }
 
 //Add Learner to learners table
@@ -70,19 +82,21 @@ function addStudent(info) {
 }
 
 function addStudenttoClass(info) {
-  return "class_learners".insert(info).then(ids => ({ id: ids[0] }));
+  return db("class_learners")
+    .insert(info)
+    .then(ids => ({ id: ids[0] }));
 }
 
 //Edit Student by Student Id
 function editStudent(info, id) {
-  return db("students")
+  return db("learners")
     .where("id", id)
     .update(info);
 }
 
 //Delete Student by Student Id
 function deleteStudent(id) {
-  return db("students")
+  return db("learners")
     .where("id", id)
     .del();
 }

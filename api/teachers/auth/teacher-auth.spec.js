@@ -13,10 +13,10 @@ describe("teacher registration function check", () => {
     await db("teachers").truncate();
     const teacher = {
       prefix: "Miss",
-      teacherFirstName: "Karen",
-      teacherLastName: "Li",
-      teacherEmail: "karen@gmail.com",
-      teacherPassword: "harakarin",
+      teacherFirstName: "Kate",
+      teacherLastName: "Lee",
+      teacherEmail: "kate@gmail.com",
+      teacherPassword: "katelee",
       schoolName: "Briscoe ES",
       city: "San Antonio",
     };
@@ -44,8 +44,8 @@ describe("registration function error check", () => {
 describe("user login function", () => {
   it("should return message and token after successful login", async () => {
     const teacherUser = {
-      teacherEmail: "karen@gmail.com",
-      teacherPassword: "harakarin",
+      teacherEmail: "kate@gmail.com",
+      teacherPassword: "katelee",
     };
     const login = await request(server)
       .post("/api/auth/teacher/login")

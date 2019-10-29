@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "nodemon index.js",
-    "node": "node inex.js",
+    "node": "node index.js",
     "testing": "cross-env NODE_ENV=testing jest --watchAll"
   },
   "repository": {

@@ -6,24 +6,26 @@ const db = require("./teacherModel");
 const restricted = require("./teacher-middleware");
 
 //1a. Add Class on Teacher Dashboard
-router.post("/add", restricted, (req, res) => {
-  const classInfo = req.body;
-  if (
-    !classInfo.className ||
-    !classInfo.subject ||
-    !classInfo.gradeLevel ||
-    !classInfo.classCode ||
-    !classInfo.teacherId
-  ) {
+router.post("/", restricted, (req, res) => {
+  const { name, subject, gradeLevel, classCode, teacherId } = req.body;
+  if (name || subject || gradeLevel || classCode || teacherId) {
     res.status(404).json({ message: "Missing information in class creation" });
   } else {
-    db.addClass(classInfo)
-      .then(item => {
-        res.status(201).json({ message: "New class created", item });
-      })
-      .catch(error => {
-        res.status(500).json({ errorMessage: "Error adding class to server" });
-      });
+    db.getClassBy({ name }).then(clase => {
+      if (clase.length > 0) {
+        res.status(400).json({ message: "This class already exists" });
+      } else {
+        db.addClass({ name, subject, gradeLevel, classCode, teacherId })
+          .then(item => {
+            res.status(201).json({ message: "New class created", item });
+          })
+          .catch(error => {
+            res
+              .status(500)
+              .json({ errorMessage: "Error adding class to server" });
+          });
+      }
+    });
   }
 });
 
@@ -57,7 +59,7 @@ router.put("/:id", (req, res) => {
 });
 
 //1d. Delete a class
-router.delete("/:id", (req, res) => {
+router.delete("/:id", restricted, (req, res) => {
   const deleteClassId = req.params.id;
   db.deleteClass(deleteClassId)
     .then(info => {

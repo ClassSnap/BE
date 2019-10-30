@@ -1,4 +1,4 @@
-const db = "../../../data/dbConfig";
+const db = require("../../../data/dbConfig");
 
 module.exports = {
   findByLearnerCode,
@@ -24,10 +24,9 @@ function matchLearnertoParent(learnerId, parentId) {
 }
 //Get Learners By Parent Id
 function getLearnerByParentId(id) {
-  return db("learn_parent as lp")
-    .join("learners as l", "lp.learnId", "l.id")
-    .where("l.parentId", id)
-    .select("l.firstName", "l.lastName");
+  return db("learner_parent as lp")
+    .join("learners as l", "lp.learnerId", "l.id")
+    .where("lp.parentId", id);
 }
 
 //Get Class By Learner Id
@@ -60,5 +59,5 @@ function getRatingByLearnerParnetId() {
   return db("ratings").where("ratings.learnParentId", id);
 }
 
-//Get rating by question id
-function getRatingByQuestionIdl
+// //Get rating by question id
+// function getRatingByQuestionIdl

@@ -20,3 +20,5 @@ router.get("/:id", (req, res) => {
   const qrid = req.params.lpid;
   db.get;
 });
+
+module.exports = router;

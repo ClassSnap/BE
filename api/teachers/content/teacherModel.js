@@ -108,7 +108,7 @@ function getQuestionByClassId(id) {
 
 //Get Question By Question Id
 function getQuestionByQuestionId(id) {
-  return db("questions".where({ id }));
+  return db("questions").where({ id });
 }
 
 //Add Question
@@ -134,12 +134,12 @@ function deleteQuestion(id) {
 
 //Get Rating By Class ID
 function getRatingByClassId(id) {
-  return db("ratings").where("ratings.classId", id);
+  return db("ratings").where("classId", id);
 }
 
 //Get Ratings By Question ID
 function getRatingByQuestionId(id) {
-  return db("ratings").where("ratings.questionId", id);
+  return db("ratings").where("questionId", id);
 }
 //Get Rating By Class and Student ID
 function getRatingByStudentId(classId, studentId) {

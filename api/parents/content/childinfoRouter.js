@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../../data/dbConfig");
+const db = require("./parentModel");
 
 //1. Match learner to parent
 //likely need review
@@ -30,8 +30,9 @@ router.post("/match", (req, res) => {
 });
 
 //2. Get child by parent
-router.get("/", (req, res) => {
-  const userid = req.body;
+router.get("/:id", (req, res) => {
+  const userid = req.params.id;
+  console.log(userid);
   db.getLearnerByParentId(userid)
     .then(kids => {
       res.status(200).json(kids);

@@ -10,7 +10,7 @@ router.get("/:id", restricted, (req, res) => {
   const teacherId = req.params.id;
   db.getClassByTeacherId(teacherId)
     .then(classes => {
-      res.status(200).json(classes);
+      res.status(200).json({ message: "Here are the classes", classes });
     })
     .catch(error => {
       res.status(500).json({

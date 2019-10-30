@@ -8,7 +8,7 @@ const restricted = require("./teacher-middleware");
 //1a. Add Class on Teacher Dashboard
 router.post("/", restricted, (req, res) => {
   const { name, subject, gradeLevel, classCode, teacherId } = req.body;
-  if (name || subject || gradeLevel || classCode || teacherId) {
+  if (!name || !subject || !gradeLevel || !classCode || !teacherId) {
     res.status(404).json({ message: "Missing information in class creation" });
   } else {
     db.getClassBy({ name }).then(clase => {
@@ -53,7 +53,7 @@ router.get("/:id", (req, res) => {
 router.put("/:id", (req, res) => {
   const updateClassId = req.params.id;
   const updateBody = req.body;
-  db.updateClass(updateBopdy, updateClassId).then(update => {
+  db.updateClass(updateBody, updateClassId).then(update => {
     res.status(200).json({ message: "Class Updated" });
   });
 });

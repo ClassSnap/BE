@@ -3,22 +3,23 @@ const server = require("../../server");
 const db = require("../../../data/dbConfig");
 const beforeAll = require("./default");
 
-//Getting Time out error
+// Getting Time out error
 // describe("add new class", () => {
 //   it("Return 201 when class is added", async () => {
 //     let token = await beforeAll();
-//     await db("class_learners").truncate();
-//     const clase = {
-//       name: "Ms.Li's ELAR Period 1",
-//       subject: "ELAR",
+//     await db("classes").truncate();
+//     const info = {
+//       name: "Ms.Li's Math Period 1",
+//       subject: "Math",
 //       gradeLevel: "5th",
-//       classCode: "missli217",
+//       classCode: "123456",
 //       teacherId: 1,
 //     };
 //     const addClass = await request(server)
-//       .post("/api/class/", clase)
+//       .post("/api/class/")
+//       .send(info)
 //       .set("authorization", token);
-//     // expect(addClass.text).toContain("New class created");
+//     expect(addClass.text).toContain("New class created");
 //     expect(addClass.status).toBe(201);
 //   });
 // });

@@ -36,7 +36,7 @@ exports.up = function(knex) {
     })
     .createTable("classes", function(classes) {
       classes.increments();
-      classes.string("className", 128).notNullable();
+      classes.string("name", 128).notNullable();
       classes.string("subject", 128).notNullable();
       classes.string("gradeLevel", 128).notNullable();
       classes.string("classCode", 128).unique();
@@ -51,7 +51,7 @@ exports.up = function(knex) {
     .createTable("class_learners", function(learner) {
       learner.increments();
       learner
-        .integer("learnId")
+        .integer("learnerId")
         .unsigned()
         .notNullable()
         .references("id")

@@ -2,10 +2,11 @@ const db = require("../../../data/dbConfig");
 
 module.exports = { addParent, findParentBy };
 
-function addParent(parent) {
-  return db("parents")
+async function addParent(parent) {
+  const [newParent] = await db("parents")
     .insert(parent)
-    .then(ids => ({ id: ids[0] }));
+    .returning("*");
+  return newParent;
 }
 
 function findParentBy(filter) {

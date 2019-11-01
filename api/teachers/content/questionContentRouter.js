@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../../data/dbConfig");
+const db = require("./teacherModel");
 
 //middleware
 const restricted = require("./teacher-middleware");
@@ -36,12 +36,12 @@ router.get("/:id", restricted, (req, res) => {
 //2. Add Question
 router.post("/add", restricted, (req, res) => {
   const questions = req.body;
-  if (!questions.question || !question.language || !question.classId) {
+  if (!questions.question || !questions.date || !questions.classId) {
     res.status(404).json({ message: "Missing question info" });
   } else {
     db.addQuestion(questions)
       .then(question => {
-        res.status(200).json({ message: "New question created" }, question);
+        res.status(200).json({ message: "New question created", question });
       })
       .catch(error => {
         res
@@ -55,15 +55,24 @@ router.post("/add", restricted, (req, res) => {
 router.put("/:id", restricted, (req, res) => {
   const updateQuestion = req.body;
   const updateQuestionId = req.params.id;
-  db.editQuestion(updateQuestion, updateQuestionId)
-    .then(info => {
-      res.status(200).json({ message: "Question updated" });
-    })
-    .catch(error => {
+  db.getQuestionByQuestionId(updateQuestionId).then(info => {
+    console.log(info);
+    if (info.length === 0) {
       res
-        .status(500)
-        .json({ errorMessage: "Error updating question to server" });
-    });
+        .status(404)
+        .json({ message: "There is no question associated with this id" });
+    } else {
+      db.editQuestion(updateQuestion, updateQuestionId)
+        .then(info => {
+          res.status(200).json({ message: "Question updated" });
+        })
+        .catch(error => {
+          res
+            .status(500)
+            .json({ errorMessage: "Error updating question to server" });
+        });
+    }
+  });
 });
 
 //4. Delete Question

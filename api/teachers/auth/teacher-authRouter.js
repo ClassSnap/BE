@@ -44,13 +44,12 @@ router.post("/login", (req, res) => {
     db.findTeacherBy({ teacherEmail })
       .first()
       .then(user => {
-        console.log(user);
         if (user && bcrypt.compareSync(teacherPassword, user.teacherPassword)) {
           const token = generateTeacherToken(user);
           res.status(200).json({
             id: user.id,
             message: `Welcome ${user.teacherFirstName}`,
-            token,
+            token: token,
           });
         } else {
           res.status(401).json({ message: "Invalid User Credentials" });

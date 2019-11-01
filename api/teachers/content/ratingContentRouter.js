@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../../data/dbConfig");
+const db = require("./teacherModel");
 
 //middleware
 const restricted = require("./teacher-middleware");
 
 //1a Get Rating By Class Id
 router.get("/class/:id", (req, res) => {
-  const RclassId = req.params.id;
-  db.getRatingByClassId(RclassId)
+  const rClassId = req.params.id;
+  db.getRatingByClassId(rClassId)
     .then(rating => {
       res.status(200).json(rating);
     })
@@ -21,8 +21,8 @@ router.get("/class/:id", (req, res) => {
 
 // 1b. Get Rating By Question Id
 router.get("/question/:id", (req, res) => {
-  const RquestionId = req.params.id;
-  db.getRatingByClassId(RquestionId)
+  const rQuestionId = req.params.id;
+  db.getRatingByQuestionId(rQuestionId)
     .then(rating => {
       res.status(200).json(rating);
     })

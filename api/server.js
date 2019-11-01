@@ -9,7 +9,11 @@ const classContentRouter = require("./teachers/content/classContentRouter");
 const questionContentRouter = require("./teachers/content/questionContentRouter");
 const ratingContentRouter = require("./teachers/content/ratingContentRouter");
 const studentContentRouter = require("./teachers/content/studentContentRouter");
+
+//parent endpoints
 const studentinfoRouter = require("./parents/content/childinfoRouter");
+const studentclassRouter = require("./parents/content/childclassRouter");
+const studentratingRouter = require("./parents/content/childratingRouter");
 
 //global middleware
 server.use(express.json());
@@ -21,6 +25,8 @@ server.use("/api/question", questionContentRouter);
 server.use("/api/rating", ratingContentRouter);
 server.use("/api/student", studentContentRouter);
 server.use("/api/parent", studentinfoRouter);
+server.use("/api/ssclass", studentclassRouter);
+server.use("/api/ssrating", studentratingRouter);
 
 server.get("/", (req, res) => {
   res.send("This is working");

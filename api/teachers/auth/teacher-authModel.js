@@ -2,10 +2,11 @@ const db = require("../../../data/dbConfig");
 
 module.exports = { addTeacher, findTeacherBy };
 
-function addTeacher(info) {
-  return db("teachers")
+async function addTeacher(info) {
+  const [newTeacher] = await db("teachers")
     .insert(info)
-    .then(ids => ({ id: ids[0] }));
+    .returning("*");
+  return newTeacher;
 }
 
 function findTeacherBy(filter) {

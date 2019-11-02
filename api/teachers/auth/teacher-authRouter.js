@@ -24,6 +24,7 @@ router.post("/register", (req, res) => {
   } else {
     const hash = bcrypt.hashSync(teacherCreds.teacherPassword, 10);
     teacherCreds.teacherPassword = hash;
+    console.log(teacherCreds);
     db.addTeacher(teacherCreds)
       .then(user => {
         res.status(201).json(user);

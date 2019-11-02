@@ -1,5 +1,7 @@
 const express = require("express");
 const server = express();
+const helmet = require("helmet");
+const cors = require("cors");
 
 //endpoints
 const teacherAuthRouter = require("./teachers/auth/teacher-authRouter");
@@ -17,6 +19,8 @@ const studentratingRouter = require("./parents/content/childratingRouter");
 
 //global middleware
 server.use(express.json());
+server.use(helmet());
+server.use(cors());
 server.use("/api/auth/teacher", teacherAuthRouter);
 server.use("/api/auth/parent", parentAuthRouter);
 server.use("/api/teacher", teacherContentRouter);

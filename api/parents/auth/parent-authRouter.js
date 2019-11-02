@@ -25,7 +25,7 @@ router.post("/register", async (req, res) => {
     if (user.id) {
       res.status(400).json({ message: "Email is already used" });
     } else {
-      await db
+       db
         .addParent(parentCreds)
         .then(user => {
           res.status(201).json(user);

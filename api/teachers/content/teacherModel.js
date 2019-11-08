@@ -119,11 +119,17 @@ function getQuestionByQuestionId(id) {
 }
 
 //Add Question
-function addQuestion(info) {
-  return db("questions")
+async function addQuestion(info) {
+  const [newQuestion] = await db("questions")
     .insert(info)
-    .then(ids => ({ id: ids[0] }));
+    .returning("*");
+  return newQuestion;
 }
+// function addQuestion(info) {
+//   return db("questions")
+//     .insert(info)
+//     .then(ids => ({ id: ids[0] }));
+// }
 
 //Edit Question
 function editQuestion(info, id) {

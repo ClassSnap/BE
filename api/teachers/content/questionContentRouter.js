@@ -34,7 +34,7 @@ router.get("/:id", restricted, (req, res) => {
 });
 
 //2. Add Question
-router.post("/add", restricted, (req, res) => {
+router.post("/", restricted, (req, res) => {
   const questions = req.body;
   if (!questions.question || !questions.date || !questions.classId) {
     res.status(404).json({ message: "Missing question info" });

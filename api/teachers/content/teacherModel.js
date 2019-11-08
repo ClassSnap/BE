@@ -40,11 +40,18 @@ function getClassBy(filter) {
 }
 
 //Add Class
-function addClass(info) {
-  return db("classes")
+async function addClass(info) {
+  const [newClass] = await db("classes")
     .insert(info)
-    .then(ids => ({ id: ids[0] }));
+    .returning("*");
+  return newClass;
 }
+
+// function addClass(info) {
+//   return db("classes")
+//     .insert(info)
+//     .then(ids => ({ id: ids[0] }));
+// }
 
 //Edit Class By Class Id
 function updateClass(info, id) {
@@ -112,11 +119,17 @@ function getQuestionByQuestionId(id) {
 }
 
 //Add Question
-function addQuestion(info) {
-  return db("questions")
+async function addQuestion(info) {
+  const [newQuestion] = await db("questions")
     .insert(info)
-    .then(ids => ({ id: ids[0] }));
+    .returning("*");
+  return newQuestion;
 }
+// function addQuestion(info) {
+//   return db("questions")
+//     .insert(info)
+//     .then(ids => ({ id: ids[0] }));
+// }
 
 //Edit Question
 function editQuestion(info, id) {

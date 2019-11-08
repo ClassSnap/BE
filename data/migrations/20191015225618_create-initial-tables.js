@@ -79,6 +79,7 @@ exports.up = function(knex) {
     .createTable("questions", function(question) {
       question.increments();
       question.string("question", 255).notNullable();
+      question.string("questionType", 255);
       question.string("imageURL", 255);
       question.string("sampleAnswer");
       question.string("language", 128);

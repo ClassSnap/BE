@@ -22,6 +22,7 @@ module.exports = {
   getRatingByClassId,
   getRatingByQuestionId,
   getRatingByStudentId,
+  getAllRating
 };
 
 //Get Class By Teacher ID
@@ -152,13 +153,32 @@ function getRatingByClassId(id) {
 
 //Get Ratings By Question ID
 function getRatingByQuestionId(id) {
-  return db("ratings").where("questionId", id);
+  return db("ratings as r")
+    .join("questions as q", "q.id", "r.questionId")
+    .join("learner_parent as lp", "lp.id", "r.learnerParentId")
+    .join("learners as l", "l.id", "lp.learnerId")
+    .select(
+      "r.rating",
+      "ratingDate",
+      "q.question",
+      "q.date",
+      "l.lastName",
+      "l.firstName",
+      "l.learnerCode"
+    )
+    .where("questionId", id);
 }
+
 //Get Rating By Class and Student ID
 function getRatingByStudentId(classId, studentId) {
   return db("ratings as r")
     .join("studentsParent as sp", "sp.id", "r.studentParentId")
     .where("r.classId", classId)
     .where("sp.studentId", studentId)
-    .select(r.rating, r.ratingDate, r.questionId);
+    .where("learners as l")
+    .select("r.rating", "r.ratingDate", "r.questionId");
+}
+
+function getAllRating() {
+  return db("ratings");
 }

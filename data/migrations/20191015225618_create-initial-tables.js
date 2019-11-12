@@ -95,7 +95,7 @@ exports.up = function(knex) {
     .createTable("ratings", function(rating) {
       rating.increments();
       rating.integer("rating").unsigned();
-
+      rating.string("comment");
       rating.date("ratingDate");
       rating
         .integer("questionId")

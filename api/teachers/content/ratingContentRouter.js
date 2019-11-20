@@ -38,4 +38,14 @@ router.get("/question/:id", (req, res) => {
 //       const RstudentId = req.params.id
 //       const RclassId = req.body
 //     })
+
+router.get("/", (req, res) => {
+  db.getAllRating()
+    .then(rating => {
+      res.status(200).json(rating);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
 module.exports = router;

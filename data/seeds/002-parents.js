@@ -13,6 +13,7 @@ exports.seed = function(knex) {
           parentEmail: "jacqueline@gmail.com",
           parentPassword: bcrypt.hashSync("93193229", 10),
           relationship: "mom",
+          language: "English"
         },
         {
           id: 2,
@@ -20,7 +21,16 @@ exports.seed = function(knex) {
           parentEmail: "erica@gmail.com",
           parentPassword: bcrypt.hashSync("sosa", 10),
           relationship: "grandma",
+          language: "Spanish"
         },
+        {
+          id: 3,
+          parentName: "Lena Yeoh",
+          parentEmail: "lena@gmail.com",
+          parentPassword: bcrypt.hashSync("yeoh", 10),
+          relationship: "mom",
+          language: "English"
+        }
       ]);
     });
 };

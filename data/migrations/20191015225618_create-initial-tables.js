@@ -25,6 +25,7 @@ exports.up = function(knex) {
         .unique();
       parent.string("parentPassword").notNullable();
       parent.string("relationship", 128);
+      parent.string("language", 128);
     })
     .createTable("learners", function(learner) {
       learner.increments();
@@ -95,7 +96,7 @@ exports.up = function(knex) {
     .createTable("ratings", function(rating) {
       rating.increments();
       rating.integer("rating").unsigned();
-
+      rating.string("comment");
       rating.date("ratingDate");
       rating
         .integer("questionId")

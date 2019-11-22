@@ -9,9 +9,9 @@ exports.seed = function(knex) {
       return knex("parents").insert([
         {
           id: 1,
-          parentName: "Jacqueline Li",
-          parentEmail: "jacqueline@gmail.com",
-          parentPassword: bcrypt.hashSync("93193229", 10),
+          parentName: "Sarah Garcia",
+          parentEmail: "sarah@gmail.com",
+          parentPassword: bcrypt.hashSync("garcia", 10),
           relationship: "mom",
           language: "English"
         },
@@ -25,9 +25,9 @@ exports.seed = function(knex) {
         },
         {
           id: 3,
-          parentName: "Lena Yeoh",
+          parentName: "Lena Yao",
           parentEmail: "lena@gmail.com",
-          parentPassword: bcrypt.hashSync("yeoh", 10),
+          parentPassword: bcrypt.hashSync("yao", 10),
           relationship: "mom",
           language: "English"
         }

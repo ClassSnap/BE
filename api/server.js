@@ -29,7 +29,7 @@ server.use("/api/question", questionContentRouter);
 server.use("/api/rating", ratingContentRouter);
 server.use("/api/student", studentContentRouter);
 server.use("/api/parent", studentinfoRouter);
-server.use("/api/ssclass", studentclassRouter);
+server.use("/api/learnerclass", studentclassRouter);
 server.use("/api/ssrating", studentratingRouter);
 
 server.get("/", (req, res) => {

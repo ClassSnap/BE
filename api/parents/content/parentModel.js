@@ -9,7 +9,6 @@ module.exports = {
   getQuestionByQuestionId,
   addRating,
   getRatingByLearnerParnetId,
-  getRatingByQuestionId,
   getClassByLId,
   getClass
 };
@@ -90,12 +89,7 @@ function getRatingByLearnerParnetId() {
 }
 
 // //Get rating by question id
-function getRatingByQuestionId(id) {
-  return db("ratings as r")
-    .join("learner_parent as lp", "lp.id", "r.learnerParentId")
-    .join("learners as l", "l.id", "lp.learnerId")
-    .where("r.questionId", id);
-}
+// function getRatingByQuestionIdl
 
 function getClass() {
   return db("class_learners");

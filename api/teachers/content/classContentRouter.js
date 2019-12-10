@@ -30,7 +30,7 @@ router.post("/", restricted, (req, res) => {
 });
 
 //1b. Get Class by Class Id
-router.get("/:id", (req, res) => {
+router.get("/:id", restricted, (req, res) => {
   const classId = req.params.id;
   db.getClassByTeacherId(classId)
     .then(info => {
@@ -50,7 +50,7 @@ router.get("/:id", (req, res) => {
 });
 
 //1c. Update Class Info
-router.put("/:id", (req, res) => {
+router.put("/:id", restricted, (req, res) => {
   const updateClassId = req.params.id;
   const updateBody = req.body;
   db.updateClass(updateBody, updateClassId).then(update => {

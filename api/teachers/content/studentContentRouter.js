@@ -5,42 +5,18 @@ const db = require("./teacherModel");
 //middleware
 const restricted = require("./teacher-middleware");
 
-// //1a. Get all students By Teacher Id
-// router.get("/teacher/:id", (req, res) => {
-//   const teacherId = req.params.id;
-//   db.getAllStudentsByTeacherId(teacherId)
-//     .then(info => {
-//       res.status(200).json(info);
-//     })
-//     .catch(error => {
-//       res.status(500).json({
-//         errorMessage: "Error getting all students by teacher id from server",
-//       });
-//     });
-// });
-
-//1d. Get all students by classId
-router.get("/class/:classId", restricted, (req, res) => {
-  const classId = req.params.classId
-  db.getAllStudentsByClassId(classId)
+//1a. Get all students By Teacher Id (not working because class_learners table does not have a teacherId)
+router.get("/teacher/:teacherId", (req, res) => {
+  const teacherId = req.params.teacherId;
+  db.getAllStudentsByTeacherId(teacherId)
     .then(students => {
-      res.status(200).json(students)
+      res.status(200).json(students);
     })
     .catch(error => {
-      res.status(500).json({errorMessage: "Error fetching all students from server", error: error})
-    })
-})
-
-//1c. Get all students
-router.get("/", restricted, (req, res) => {
-  db.getAllStudents()
-    .then(students => {
-      res.status(200).json({ message: "Working", students });
-    })
-    .catch(error => {
-      res
-        .status(500)
-        .json({ errorMessage: "Error fetching all students from server" });
+      res.status(500).json({
+        errorMessage: "Error getting all students by teacher id from server",
+        error: error
+      });
     });
 });
 
@@ -59,6 +35,31 @@ router.get("/:id", (req, res) => {
       });
     });
 });
+
+//1c. Get all students
+router.get("/", restricted, (req, res) => {
+  db.getAllStudents()
+    .then(students => {
+      res.status(200).json({ message: "Working", students });
+    })
+    .catch(error => {
+      res
+        .status(500)
+        .json({ errorMessage: "Error fetching all students from server" });
+    });
+});
+
+//1d. Get all students by classId
+router.get("/class/:classId", restricted, (req, res) => {
+  const classId = req.params.classId
+  db.getAllStudentsByClassId(classId)
+    .then(students => {
+      res.status(200).json(students)
+    })
+    .catch(error => {
+      res.status(500).json({errorMessage: "Error fetching all students by class id from server", error: error})
+    })
+})
 
 //2. add Student
 router.post("/add", restricted, (req, res) => {

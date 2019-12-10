@@ -5,7 +5,7 @@ const db = require("./teacherModel");
 //middleware
 const restricted = require("./teacher-middleware");
 
-//1a. Get all students By Teacher Id (not working because class_learners table does not have a teacherId)
+//1a. Get all students By Teacher Id
 router.get("/teacher/:teacherId", (req, res) => {
   const teacherId = req.params.teacherId;
   db.getAllStudentsByTeacherId(teacherId)

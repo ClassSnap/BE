@@ -19,6 +19,18 @@ const restricted = require("./teacher-middleware");
 //     });
 // });
 
+//1d. Get all students by classId
+router.get("/class/:classId", restricted, (req, res) => {
+  const classId = req.params.classId
+  db.getAllStudentsByClassId(classId)
+    .then(students => {
+      res.status(200).json(students)
+    })
+    .catch(error => {
+      res.status(500).json({errorMessage: "Error fetching all students from server", error: error})
+    })
+})
+
 //1c. Get all students
 router.get("/", restricted, (req, res) => {
   db.getAllStudents()
@@ -94,4 +106,5 @@ router.delete("/:id", (req, res) => {
         .json({ errorMessage: "Error deleting student from server" });
     });
 });
+
 module.exports = router;

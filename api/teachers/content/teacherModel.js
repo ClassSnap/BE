@@ -8,6 +8,7 @@ module.exports = {
   updateClass,
   deleteClass,
   getAllStudentsByClassId,
+  getAllStudentsByTeacherId,
   getAllStudents,
   getOneStudentByStudentId,
   addStudent,
@@ -73,6 +74,11 @@ function deleteClass(id) {
 //Get All Student By ClassId
 function getAllStudentsByClassId(id) {
   return db("class_learners").where("classId", id);
+}
+
+//Get All Students By TeacherId
+function getAllStudentsByTeacherId(teacherId) {
+  return db("class-learners").where("teacherId", teacherId)
 }
 
 //Get all students

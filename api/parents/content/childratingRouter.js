@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../parents/content/parentModel");
+const db = require("../../../data/dbConfig");
 
 //1. Post rating to specific question
 router.post("/by/:id", (req, res) => {
@@ -17,16 +17,8 @@ router.post("/by/:id", (req, res) => {
 
 //2.Get rating from question
 router.get("/:id", (req, res) => {
-  const qrid = req.params.id;
-  db.getRatingByQuestionId(qrid)
-    .then(info => {
-      res.status(200).json(info);
-    })
-    .catch(error => {
-      res
-        .status(500)
-        .json({ errorMessage: "Error getting rating by question ID" });
-    });
+  const qrid = req.params.lpid;
+  db.get;
 });
 
 module.exports = router;

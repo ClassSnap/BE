@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
+
 const db = require("../../parents/content/parentModel");
 const parentlock = require("./parent-middleware");
+
 
 //1. Post rating to specific question
 router.post("/by/:id", parentlock, (req, res) => {
@@ -17,6 +19,7 @@ router.post("/by/:id", parentlock, (req, res) => {
 });
 
 //2.Get rating from question
+
 router.get("/:id", parentlock, (req, res) => {
   const qrid = req.params.id;
   db.getRatingByQuestionId(qrid)
@@ -28,6 +31,7 @@ router.get("/:id", parentlock, (req, res) => {
         .status(500)
         .json({ errorMessage: "Error getting rating by question ID" });
     });
+
 });
 
 module.exports = router;

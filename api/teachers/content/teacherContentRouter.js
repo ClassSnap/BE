@@ -44,7 +44,7 @@ router.get("/:id", restricted, (req, res) => {
 //1b. Get Class by Class Id
 router.get("/class/:id", (req, res) => {
   const classId = req.params.id;
-  db.getClassByTeacherId(classId)
+  db.getClassByClassId(classId)
     .then(info => {
       if (!info) {
         res

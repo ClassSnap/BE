@@ -48,4 +48,16 @@ router.get("/", (req, res) => {
       res.status(500).json(error);
     });
 });
+
+router.post("/"), (req, res) => {
+  const rating = req.body;
+  db.addRatingtoNewQuestion(rating)
+    .then(newRating => {
+      res.status(201).json(newRating);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    })
+}
+
 module.exports = router;

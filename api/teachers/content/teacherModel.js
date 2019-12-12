@@ -73,7 +73,7 @@ function deleteClass(id) {
 
 //Get All Student By ClassId
 function getAllStudentsByClassId(classId) {
-  return db("class_learners").where("classId", classId);
+  return db("class_learners").join("learner_parent", "class_learners.learnerId", "learner_parent.learnerId").where("classId", classId);
 }
 
 //Get All Students By TeacherId

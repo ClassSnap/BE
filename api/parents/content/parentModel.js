@@ -8,7 +8,7 @@ module.exports = {
   getQuestionByClassId,
   getQuestionByQuestionId,
   addRating,
-  getRatingByLearnerParnetId,
+  getRatingByLearnerParentId,
   getRatingByQuestionId,
   getClassByLId,
   getClass
@@ -85,7 +85,7 @@ function addRating(info, learnerid) {
 }
 
 //Get List of Rating by learn parent id
-function getRatingByLearnerParnetId() {
+function getRatingByLearnerParentId() {
   return db("ratings").where("ratings.learnParentId", id);
 }
 

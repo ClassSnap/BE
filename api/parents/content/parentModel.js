@@ -8,7 +8,7 @@ module.exports = {
   getQuestionByClassId,
   getQuestionByQuestionId,
   addRating,
-  getRatingByLearnerParnetId,
+  getRatingByLearnerParentId,
   getRatingByQuestionId,
   getClassByLId,
   getClass
@@ -85,8 +85,10 @@ function addRating(info, learnerid) {
 }
 
 //Get List of Rating by learn parent id
-function getRatingByLearnerParnetId() {
-  return db("ratings").where("ratings.learnParentId", id);
+function getRatingByLearnerParentId(id) {
+  return db("ratings as r")
+    .join("questions as q", "q.id", "r.questionId")
+    .where("r.learnerParentId", id);
 }
 
 // //Get rating by question id
@@ -94,6 +96,7 @@ function getRatingByQuestionId(id) {
   return db("ratings as r")
     .join("learner_parent as lp", "lp.id", "r.learnerParentId")
     .join("learners as l", "l.id", "lp.learnerId")
+    .join("questions as q", "q.id", "r.questionId")
     .where("r.questionId", id);
 }
 

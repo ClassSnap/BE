@@ -34,4 +34,15 @@ router.get("/:id", parentlock, (req, res) => {
 
 });
 
+// Get ratings by leaner_parent id
+router.get("/learnerParent/:id", (req, res) => {
+  const lpid = req.params.id
+  db.getRatingByLearnerParentId(lpid)
+    .then(ratings => res.status(200).json(ratings))
+    .catch(error => res.status(500).json({
+      errorMessage: "Error getting ratings",
+      error: error
+    }))
+})
+
 module.exports = router;

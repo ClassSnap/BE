@@ -65,7 +65,7 @@ exports.up = function(knex) {
         .inTable("classes");
     })
     .createTable("learner_parent", function(lp) {
-      lp.increments();
+      lp.increments("lpid");
       lp.integer("parentId")
         .unsigned()
         .notNullable()
@@ -108,7 +108,7 @@ exports.up = function(knex) {
         .integer("learnerParentId")
         .unsigned()
         .notNullable()
-        .references("id")
+        .references("lpid")
         .inTable("learner_parent");
       rating
         .integer("classId")

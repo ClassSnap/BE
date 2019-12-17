@@ -19,7 +19,7 @@ router.post("/register", (req, res) => {
     !teacherCreds.city
   ) {
     res.status(404).json({
-      message: "Required information for teacher registration missing",
+      message: "Required information for teacher registration missing"
     });
   } else {
     const hash = bcrypt.hashSync(teacherCreds.teacherPassword, 10);
@@ -32,6 +32,7 @@ router.post("/register", (req, res) => {
       .catch(error => {
         res.status(500).json({
           errorMessage: "Error registering teacher account to server",
+          error
         });
       });
   }
@@ -50,14 +51,16 @@ router.post("/login", (req, res) => {
           res.status(200).json({
             id: user.id,
             message: `Welcome ${user.teacherFirstName}`,
-            token: token,
+            token: token
           });
         } else {
           res.status(401).json({ message: "Invalid User Credentials" });
         }
       })
       .catch(error => {
-        res.status(500).json({ errorMessage: "Server error in teacher login" });
+        res
+          .status(500)
+          .json({ errorMessage: "Server error in teacher login", error });
       });
   }
 });

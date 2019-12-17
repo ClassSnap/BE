@@ -22,7 +22,7 @@ router.post("/", restricted, (req, res) => {
           .catch(error => {
             res
               .status(500)
-              .json({ errorMessage: "Error adding class to server" });
+              .json({ errorMessage: "Error adding class to server", error });
           });
       }
     });

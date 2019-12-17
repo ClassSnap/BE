@@ -61,7 +61,7 @@ router.post("/add", restricted, (req, res) => {
       .catch(error => {
         res
           .status(500)
-          .json({ errorMessage: "Error adding students to server" });
+          .json({ errorMessage: "Error adding students to server", error });
       });
   }
 });

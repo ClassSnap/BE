@@ -14,7 +14,7 @@ router.get("/:id", restricted, (req, res) => {
     })
     .catch(error => {
       res.status(500).json({
-        errorMessage: "Error fetching class data for teachers from server",
+        errorMessage: "Error fetching class data for teachers from server"
       });
     });
 });

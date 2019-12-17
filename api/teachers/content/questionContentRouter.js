@@ -46,7 +46,7 @@ router.post("/", restricted, (req, res) => {
       .catch(error => {
         res
           .status(500)
-          .json({ errorMessage: "Error adding question to server" });
+          .json({ errorMessage: "Error adding question to server", error });
       });
   }
 });

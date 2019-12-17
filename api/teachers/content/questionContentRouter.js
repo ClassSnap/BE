@@ -14,7 +14,7 @@ router.get("/class/:id", restricted, (req, res) => {
     })
     .catch(error => {
       res.status(500).json({
-        errorMessage: "Error getting questions by Class id from server"
+        errorMessage: "Error getting questions by Class id from server",
       });
     });
 });
@@ -28,7 +28,7 @@ router.get("/:id", restricted, (req, res) => {
     })
     .catch(error => {
       res.status(500).json({
-        errorMessage: "Error getting questions by Question id from server"
+        errorMessage: "Error getting questions by Question id from server",
       });
     });
 });
@@ -46,7 +46,7 @@ router.post("/", restricted, (req, res) => {
       .catch(error => {
         res
           .status(500)
-          .json({ errorMessage: "Error adding question to server", error });
+          .json({ errorMessage: "Error adding question to server" });
       });
   }
 });

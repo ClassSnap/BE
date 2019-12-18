@@ -43,7 +43,7 @@ router.get("/:id", (req, res) => {
     })
     .catch(error => {
       res.status(500).json({
-        errorMessage: "Error getting student by student id from server",
+        errorMessage: "Error getting student by student id from server"
       });
     });
 });
@@ -94,4 +94,20 @@ router.delete("/:id", (req, res) => {
         .json({ errorMessage: "Error deleting student from server" });
     });
 });
+
+router.get("/classparents/:id", (req, res) => {
+  const classId = req.params.id;
+
+  db.getLearnersParentsByClassId(classId)
+    .then(info => {
+      res.status(200).json(info);
+    })
+    .catch(error => {
+      res.status(500).json({
+        errorMessage: "Error getting learnerParent by ClassId",
+        error
+      });
+    });
+});
+
 module.exports = router;

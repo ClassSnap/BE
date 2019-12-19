@@ -48,4 +48,26 @@ router.get("/", (req, res) => {
       res.status(500).json(error);
     });
 });
+
+//Post blank rating
+router.post("/", restricted, (req, res) => {
+  const blankForm = req.body;
+  if (
+    !blankForm.questionId ||
+    !blankForm.learnerParentId ||
+    !blankForm.classId
+  ) {
+    res.status(404).json({ errorMessage: "Missing IDs" });
+  } else {
+    db.addRatingtoNewQuestion(blankForm)
+      .then(info => {
+        res.status(200).json(info);
+      })
+      .catch(error => {
+        res
+          .status(500)
+          .json({ errorMessage: "Error creating blank form", error });
+      });
+  }
+});
 module.exports = router;

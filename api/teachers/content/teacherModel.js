@@ -26,7 +26,8 @@ module.exports = {
   getLearnersByClassId,
   getParentByLearnerId,
   addRatingtoNewQuestion,
-  getLearnersParentsByClassId
+  getLearnersParentsByClassId,
+  deleteRatingbyQuestionId
 };
 
 //Get Class By Teacher ID
@@ -217,4 +218,10 @@ function getLearnersParentsByClassId(id) {
       "l.lastName",
       "cl.classId"
     );
+}
+
+function deleteRatingbyQuestionId(id) {
+  return db("ratings as r")
+    .where("r.questionId", id)
+    .del();
 }

@@ -70,4 +70,22 @@ router.post("/", restricted, (req, res) => {
       });
   }
 });
+
+//Delete Rating By Question Id
+router.delete("/:id", restricted, (req, res) => {
+  const deleteQuestionId = req.params.id;
+  db.deleteRatingbyQuestionId(deleteQuestionId)
+    .then(info => {
+      res.status(200).json({
+        message: `Ratings of question ID ${deleteQuestionId} deleted`,
+        info
+      });
+    })
+    .catch(error => {
+      res
+        .status(500)
+        .json({ errorMessage: "Error deleting ratings by question Id", error });
+    });
+});
+
 module.exports = router;

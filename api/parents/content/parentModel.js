@@ -88,6 +88,8 @@ function addRating(info, learnerid) {
 function getRatingByLearnerParentId(id) {
   return db("ratings as r")
     .join("questions as q", "q.id", "r.questionId")
+    .join("learner_parent as lp", "lp.id", "r.learnerParentId")
+    .join("learners as l", "l.id", "lp.learnerId")
     .where("r.learnerParentId", id);
 }
 

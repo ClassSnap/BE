@@ -10,6 +10,7 @@ module.exports = {
   addRating,
   getRatingByLearnerParentId,
   getRatingByQuestionId,
+  getRatingByParentId,
   getClassByLId,
   getClass
 };
@@ -91,6 +92,34 @@ function getRatingByLearnerParentId(id) {
     .join("learner_parent as lp", "lp.id", "r.learnerParentId")
     .join("learners as l", "l.id", "lp.learnerId")
     .where("r.learnerParentId", id);
+}
+
+function getRatingByParentId(id) {
+  return db("ratings as r")
+    .join("questions as q", "q.id", "r.questionId")
+    .join("classes as c", "c.id", "q.classId")
+    .join("learner_parent as lp", "lp.id", "r.learnerParentId")
+    .join("learners as l", "l.id", "lp.learnerId")
+    .join("parents as p", "lp.parentId", "p.id")
+    .where("p.id", id)
+    .select(
+      "r.rating",
+      "r.comment",
+      "r.questionId",
+      "r.learnerParentId",
+      "r.classId",
+      "r.completed",
+      "q.question",
+      "q.questionType",
+      "q.language",
+      "q.date",
+      "q.classId",
+      "lp.parentId",
+      "lp.learnerId",
+      "l.firstName",
+      "l.lastName",
+      "c.name"
+    );
 }
 
 // //Get rating by question id

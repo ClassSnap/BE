@@ -19,7 +19,7 @@ router.post("/by/:id", parentlock, (req, res) => {
 
 //2.Get rating from question
 
-router.get("/:id", parentlock, (req, res) => {
+router.get("/question/:id", parentlock, (req, res) => {
   const qrid = req.params.id;
   db.getRatingByQuestionId(qrid)
     .then(info => {
@@ -29,6 +29,20 @@ router.get("/:id", parentlock, (req, res) => {
       res
         .status(500)
         .json({ errorMessage: "Error getting rating by question ID" });
+    });
+});
+
+//Get Rating by Rating Id
+router.get("/:id", parentlock, (req, res) => {
+  const ratingId = req.params.id;
+  db.getRatingByRatingId(ratingId)
+    .then(info => {
+      res.status(200).json(info);
+    })
+    .catch(error => {
+      res
+        .status(500)
+        .json({ errorMessage: "Error getting rating by Rating ID" });
     });
 });
 
@@ -55,6 +69,33 @@ router.get("/parent/:id", parentlock, (req, res) => {
         .status(500)
         .json({ errorMessage: "Error getting ratings from parent ID", error })
     );
+});
+
+//Update rating (a.k.a Parents posting rating since teacher creates the blank form)
+router.put("/:id", parentlock, (req, res) => {
+  const score = req.body;
+  const ratingId = req.params.id;
+  db.getRatingByRatingId(ratingId)
+    .then(newRating => {
+      if (newRating.length === 0) {
+        res.status(404).json({ errorMessage: "Rating Id does not exist" });
+      } else {
+        db.editRatingByRatingId(ratingId, score)
+          .then(newRating =>
+            res.status(200).json({ message: "New Rating posted", rating })
+          )
+          .catch(error => {
+            res
+              .status(500)
+              .json({ errorMessage: "Error posting/updating rating", error });
+          });
+      }
+    })
+    .catch(error => {
+      res
+        .status(500)
+        .json({ errorMessage: "Error geting rating by rating id", error });
+    });
 });
 
 module.exports = router;

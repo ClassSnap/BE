@@ -103,6 +103,7 @@ function getRatingByParentId(id) {
     .join("parents as p", "lp.parentId", "p.id")
     .where("p.id", id)
     .select(
+      "r.id",
       "r.rating",
       "r.comment",
       "r.questionId",

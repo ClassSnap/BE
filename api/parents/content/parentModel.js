@@ -135,3 +135,14 @@ function getRatingByQuestionId(id) {
 function getClass() {
   return db("class_learners");
 }
+
+function editRatingByRatingId(id, info) {
+  return db("ratings")
+    .where("id", "=", id)
+    .update(info);
+}
+
+function getRatingByRatingId(id) {
+  return db("ratings").where("id", id);
+}
+

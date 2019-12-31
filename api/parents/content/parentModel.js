@@ -12,9 +12,7 @@ module.exports = {
   getRatingByQuestionId,
   getRatingByParentId,
   getClassByLId,
-  getClass,
-  editRatingByRatingId,
-  getRatingByRatingId
+  getClass
 };
 
 //find Learner By Name
@@ -147,3 +145,4 @@ function editRatingByRatingId(id, info) {
 function getRatingByRatingId(id) {
   return db("ratings").where("id", id);
 }
+

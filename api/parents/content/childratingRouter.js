@@ -19,7 +19,7 @@ router.post("/by/:id", parentlock, (req, res) => {
 
 //2.Get rating from question
 
-router.get("/:id", parentlock, (req, res) => {
+router.get("/question/:id", parentlock, (req, res) => {
   const qrid = req.params.id;
   db.getRatingByQuestionId(qrid)
     .then(info => {
@@ -31,6 +31,22 @@ router.get("/:id", parentlock, (req, res) => {
         .json({ errorMessage: "Error getting rating by question ID" });
     });
 });
+
+
+//Get Rating by Rating Id
+router.get("/:id", parentlock, (req, res) => {
+  const ratingId = req.params.id;
+  db.getRatingByRatingId(ratingId)
+    .then(info => {
+      res.status(200).json(info);
+    })
+    .catch(error => {
+      res
+        .status(500)
+        .json({ errorMessage: "Error getting rating by Rating ID" });
+    });
+});
+
 
 // Get ratings by leaner_parent id
 router.get("/learnerParent/:id", parentlock, (req, res) => {

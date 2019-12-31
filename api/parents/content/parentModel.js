@@ -140,10 +140,10 @@ function getClass() {
 
 function editRatingByRatingId(id, info) {
   return db("ratings")
-    .where("id", id)
+    .where("id", "=", id)
     .update(info);
 }
 
 function getRatingByRatingId(id) {
-  return db("ratings").where("id", "id");
+  return db("ratings").where("id", id);
 }

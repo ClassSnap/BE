@@ -146,7 +146,7 @@ router.get("/class/:id", restricted, (req, res) => {
     });
 });
 
-//Delete student in a class
+//Delete student in a class by class_learner id
 router.delete("/classlearner/:id", restricted, (req, res) => {
   const deleteLearnerId = req.params.id;
   db.deleteStudentfromClass(deleteLearnerId)

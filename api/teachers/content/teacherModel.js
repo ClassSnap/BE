@@ -14,6 +14,7 @@ module.exports = {
   addStudenttoClass,
   editStudent,
   deleteStudent,
+  deleteStudentfromClass,
   getQuestionByClassId,
   getQuestionByQuestionId,
   addQuestion,
@@ -114,6 +115,13 @@ function deleteStudent(id) {
     .del();
 }
 
+//Delete class-student match in class_learner table
+function deleteStudentfromClass(id) {
+  return db("class_learners")
+    .where("id", id)
+    .del();
+}
+
 //Get Question By ClassID
 function getQuestionByClassId(id) {
   return db("questions").where("classId", id);
@@ -190,7 +198,9 @@ function getAllRating() {
 
 //Get Learners By Class Id
 function getLearnersByClassId(id) {
-  return db("class_learners").where("class_learners.classId", "=", id);
+  return db("class_learners as cl")
+    .join("learners as l", "l.id", "cl.learnerId")
+    .where("cl.classId", "=", id);
 }
 
 //Get Parent by Learner Id

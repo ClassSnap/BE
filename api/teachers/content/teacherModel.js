@@ -102,10 +102,17 @@ async function addStudent(info) {
   return newStudent;
 }
 
-function addStudenttoClass(info) {
-  return db("class_learners")
+// function addStudenttoClass(info) {
+//   return db("class_learners")
+//     .insert(info)
+//     .then(ids => ({ id: ids[0] }));
+// }
+
+async function addStudenttoClass(info) {
+  const [newLearner] = await db("class_learners")
     .insert(info)
-    .then(ids => ({ id: ids[0] }));
+    .returning("*");
+  return newLearner;
 }
 
 //Edit Student by Student Id

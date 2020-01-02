@@ -89,10 +89,17 @@ function getOneStudentByStudentId(id) {
 }
 
 //Add Learner to learners table
-function addStudent(info) {
-  return db("learners")
+// function addStudent(info) {
+//   return db("learners")
+//     .insert(info)
+//     .then(ids => ({ id: ids[0] }));
+// }
+
+async function addStudent(info) {
+  const [newStudent] = await db("learners")
     .insert(info)
-    .then(ids => ({ id: ids[0] }));
+    .returning("*");
+  return newStudent;
 }
 
 function addStudenttoClass(info) {

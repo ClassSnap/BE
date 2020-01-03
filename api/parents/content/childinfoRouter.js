@@ -42,12 +42,10 @@ router.post("/match/", (req, res) => {
         res.status(200).json(match);
       })
       .catch(error => {
-        res
-          .status(500)
-          .json({
-            errorMessage: "Error posting to learner_parent table",
-            error
-          });
+        res.status(500).json({
+          errorMessage: "Error posting to learner_parent table",
+          error
+        });
       });
   }
 });
@@ -99,4 +97,14 @@ router.get("/class", (req, res) => {
     });
 });
 
+router.delete("/:id", parentlock, (req, res) => {
+  const deleteId = req.params.id;
+  db.deletePair(deleteId)
+    .then(del => {
+      res.status(200).json({ message: "Delete successful", del });
+    })
+    .catch(error => {
+      res.status(500).json({ errorMessage: "Error deleting pair", error });
+    });
+});
 module.exports = router;

@@ -17,7 +17,8 @@ module.exports = {
   getLearnersByClass,
   addParentChild,
   editRatingByRatingId,
-  getRatingByRatingId
+  getRatingByRatingId,
+  deletePair
 };
 
 //find Learner By Name
@@ -171,4 +172,10 @@ function editRatingByRatingId(id, info) {
 
 function getRatingByRatingId(id) {
   return db("ratings").where("id", id);
+}
+
+function deletePair(id) {
+  return db("learner_parent")
+    .where("id", id)
+    .del();
 }

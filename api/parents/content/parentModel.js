@@ -13,6 +13,9 @@ module.exports = {
   getRatingByParentId,
   getClassByLId,
   getClass,
+  getClassBy,
+  getLearnersByClass,
+  addParentChild,
   editRatingByRatingId,
   getRatingByRatingId
 };
@@ -136,6 +139,28 @@ function getRatingByQuestionId(id) {
 
 function getClass() {
   return db("class_learners");
+}
+
+function getClassBy(filter) {
+  return db("classes").where(filter);
+}
+
+// function getClassByClassCode (code) {
+//   return db("classes")
+// }
+
+function getLearnersByClass(id) {
+  return db("class_learners as cl")
+    .join("classes as c", "c.id", "cl.classId")
+    .join("learners as l", "l.id", "cl.learnerId")
+    .where("cl.classId", id);
+}
+
+async function addParentChild(info) {
+  const [newParentChild] = await db("learner_parent")
+    .insert(info)
+    .returning("*");
+  return newParentChild;
 }
 
 function editRatingByRatingId(id, info) {

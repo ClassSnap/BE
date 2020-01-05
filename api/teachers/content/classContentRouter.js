@@ -72,4 +72,33 @@ router.delete("/:id", restricted, (req, res) => {
     });
 });
 
+//2a. Get all students by class id
+router.get("/students/:id", restricted, (req, res) => {
+  const classId = req.params.id;
+  db.getStudentsbyClassId(classId)
+    .then(student => {
+      res
+        .status(200)
+        .json({ message: "Get all students successfully", student });
+    })
+    .catch(error => {
+      res
+        .status(500)
+        .json({ errorMessage: "Error getting all students", error });
+    });
+});
+
+//3a. Get parents by classId
+router.get("/parents/:id", restricted, (req, res) => {
+  const classId = req.params.id;
+  db.getLearnersParentsByClassId(classId)
+    .then(parents => {
+      res.status(200).json({ message: "Got students' parents info", parents });
+    })
+    .catch(erro => {
+      res
+        .status(500)
+        .json({ errorMessage: "Error getting parent info", error });
+    });
+});
 module.exports = router;

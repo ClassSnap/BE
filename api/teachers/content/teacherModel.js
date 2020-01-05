@@ -28,7 +28,9 @@ module.exports = {
   getParentByLearnerId,
   addRatingtoNewQuestion,
   getLearnersParentsByClassId,
-  deleteRatingbyQuestionId
+  deleteRatingbyQuestionId,
+  getStudentsbyClassId,
+  getLearnersParentsByClassId
 };
 
 //Get Class By Teacher ID
@@ -248,4 +250,29 @@ function deleteRatingbyQuestionId(id) {
   return db("ratings as r")
     .where("r.questionId", id)
     .del();
+}
+
+//Get students by class id
+function getStudentsbyClassId(id) {
+  return db("class_learners as cl")
+    .join("learners as l", "l.id", "cl.learnerId")
+    .where("classId", id);
+}
+
+//Get parents by class id
+function getLearnersParentsByClassId(id) {
+  return db("class_learners as cl")
+    .join("learner_parent as lp", "lp.learnerId", "cl.learnerId")
+    .join("learners as l", "l.id", "cl.learnerId")
+    .join("parents as p", "p.id", "lp.parentId")
+    .where("cl.classId", id)
+    .select(
+      "cl.classId",
+      "l.firstName",
+      "l.lastName",
+      "l.learnerCode",
+      "p.parentName",
+      "p.language",
+      "p.relationship"
+    );
 }

@@ -27,7 +27,7 @@ module.exports = {
   getLearnersByClassId,
   getParentByLearnerId,
   addRatingtoNewQuestion,
-  getLearnersParentsByClassId,
+  // getLearnersParentsByClassId,
   deleteRatingbyQuestionId,
   getStudentsbyClassId,
   getLearnersParentsByClassId
@@ -231,20 +231,20 @@ function addRatingtoNewQuestion(info) {
     .then(ids => ({ id: ids[0] }));
 }
 
-function getLearnersParentsByClassId(id) {
-  return db("class_learners as cl")
-    .join("learners as l", "l.id", "cl.learnerId")
-    .join("learner_parent as lp", "lp.learnerId", "l.id")
-    .where("cl.classId", "=", id)
-    .select(
-      "lp.id",
-      "lp.learnerId",
-      "lp.parentId",
-      "l.firstName",
-      "l.lastName",
-      "cl.classId"
-    );
-}
+// function getLearnersParentsByClassId(id) {
+//   return db("class_learners as cl")
+//     .join("learners as l", "l.id", "cl.learnerId")
+//     .join("learner_parent as lp", "lp.learnerId", "l.id")
+//     .where("cl.classId", "=", id)
+//     .select(
+//       "lp.id",
+//       "lp.learnerId",
+//       "lp.parentId",
+//       "l.firstName",
+//       "l.lastName",
+//       "cl.classId"
+//     );
+// }
 
 function deleteRatingbyQuestionId(id) {
   return db("ratings as r")
@@ -267,6 +267,9 @@ function getLearnersParentsByClassId(id) {
     .join("parents as p", "p.id", "lp.parentId")
     .where("cl.classId", id)
     .select(
+      "lp.id",
+      "lp.learnerId",
+      "lp.parentId",
       "cl.classId",
       "l.firstName",
       "l.lastName",

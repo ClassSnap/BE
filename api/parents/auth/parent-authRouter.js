@@ -14,7 +14,7 @@ router.post("/register", async (req, res) => {
     !parentCreds.parentPassword
   ) {
     res.status(404).json({
-      message: "Name, Email, and Password are required for registration",
+      message: "Name, Email, and Password are required for registration"
     });
   } else {
     const hashed = bcrypt.hashSync(parentCreds.parentPassword, 10);
@@ -25,8 +25,7 @@ router.post("/register", async (req, res) => {
     if (user.id) {
       res.status(400).json({ message: "Email is already used" });
     } else {
-       db
-        .addParent(parentCreds)
+      db.addParent(parentCreds)
         .then(user => {
           res.status(201).json(user);
         })
@@ -57,7 +56,8 @@ router.post("/login", (req, res) => {
           res.status(200).json({
             parentId: user.id,
             message: `Welcome ${user.parentName}`,
-            parentToken,
+            language: user.language,
+            parentToken
           });
         } else {
           res.status(404).json({ message: "Invalid login credentials" });

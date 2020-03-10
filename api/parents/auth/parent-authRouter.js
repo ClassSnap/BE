@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const db = require("./parent-authModel");
 const bcrypt = require("bcryptjs");
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 //token
 const genereateParentToken = require("./parent-token");
@@ -67,6 +69,31 @@ router.post("/login", (req, res) => {
         res.status(500).json({ errorMessage: "Server error in parent login" });
       });
   }
+});
+
+router.post("/check", (req, res) => {
+  const { parentEmail } = req.body;
+  db.findParentBy({ parentEmail })
+    .then(parent => {
+      if (parent.length === 0) {
+        res.status(400).json({ error: "This email does not exist" });
+      } else {
+        res.status(200).json({ data: parent });
+        email = parent[0].parentEmail;
+        console.log(email);
+        const msg = {
+          to: { email },
+          from: "classsnapllc@gmail.com",
+          subject: "Password Reset on ClassSnap",
+          text: "Please click the link below and reset your password",
+          html: "<strong>https://class-snap.netlify.com/#/reset</strong>"
+        };
+        sgMail.send(msg);
+      }
+    })
+    .catch(error => {
+      res.status(500).json({ error: error });
+    });
 });
 
 module.exports = router;

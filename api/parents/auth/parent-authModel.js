@@ -10,5 +10,7 @@ async function addParent(parent) {
 }
 
 function findParentBy(filter) {
-  return db("parents").where(filter);
+  return db("parents as p")
+    .where(filter)
+    .select("p.id", "p.parentEmail", "p.parentName");
 }
